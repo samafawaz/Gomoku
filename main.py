@@ -2,40 +2,16 @@ import pygame
 import sys
 from gui.main_menu import MainMenu
 from gui.board import Board
+from game.game_loop import run_game_loop
 
 def human_vs_ai():
-    # Placeholder: Replace with your actual Human vs AI game loop
+    #lesa
     print("Starting Human vs AI mode")
     run_game_loop()
 
-def ai_vs_ai():
-    # Placeholder: Replace with your actual AI vs AI game loop
+def ai_vs_ai(): #not implemented yet
     print("Starting AI vs AI mode")
     run_game_loop()
-
-def run_game_loop():
-    board = Board()
-    screen = pygame.display.set_mode((board.width, board.height))
-    pygame.display.set_caption("Gomoku")
-
-    clock = pygame.time.Clock()
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                board.select_cell(pos)
-
-        board.draw(screen)
-        pygame.display.flip()
-        clock.tick(60)
-
-    pygame.quit()
-    sys.exit()
 
 def main():
     pygame.init()
@@ -48,4 +24,4 @@ def main():
         ai_vs_ai()
 
 if __name__ == "__main__":
-    main()
+   run_game_loop()
