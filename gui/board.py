@@ -8,28 +8,37 @@ class Board:
         self.cell_size = cell_size
         self.margin = margin
         self.width = size * cell_size + margin * 2
-        self.height = self.width 
+        self.height = self.width
         self.bg_color = (65, 65, 65)
-        self.line_color = (255, 255, 255)         
+        self.line_color = (255, 255, 255)
 
         self.grid = [[None for _ in range(size)] for _ in range(size)]
         self.selected_cell = None
-        self.current_turn = 'red'
+        self.current_turn = "red"
 
     def draw(self, screen):
         screen.fill(self.bg_color)
 
-       
         for i in range(self.size + 1):
             x = self.margin + i * self.cell_size
-            pygame.draw.line(screen, self.line_color, (x, self.margin), (x, self.height - self.margin), 2)
+            pygame.draw.line(
+                screen,
+                self.line_color,
+                (x, self.margin),
+                (x, self.height - self.margin),
+                2,
+            )
 
-       
         for j in range(self.size + 1):
             y = self.margin + j * self.cell_size
-            pygame.draw.line(screen, self.line_color, (self.margin, y), (self.width - self.margin, y), 2)
+            pygame.draw.line(
+                screen,
+                self.line_color,
+                (self.margin, y),
+                (self.width - self.margin, y),
+                2,
+            )
 
-     
         for row in range(self.size):
             for col in range(self.size):
                 stone = self.grid[row][col]
@@ -44,20 +53,31 @@ class Board:
         shadow_offset = 4
         shadow_color = (30, 30, 30)
 
-        pygame.draw.circle(screen, shadow_color, (center_x + shadow_offset, center_y + shadow_offset), radius)
+        pygame.draw.circle(
+            screen,
+            shadow_color,
+            (center_x + shadow_offset, center_y + shadow_offset),
+            radius,
+        )
 
-        if color == 'blue':
+        if color == "blue":
             pygame.draw.circle(screen, (0, 0, 255), (center_x, center_y), radius)
             pygame.draw.circle(screen, (0, 0, 0), (center_x, center_y), radius, 1)
-        elif color == 'red':
+        elif color == "red":
             pygame.draw.circle(screen, (255, 0, 0), (center_x, center_y), radius)
             pygame.draw.circle(screen, (0, 0, 0), (center_x, center_y), radius, 1)
 
     def get_cell_from_pos(self, pos):
         x, y = pos
-        if x < self.margin - self.cell_size // 2 or x > self.width - self.margin + self.cell_size // 2:
+        if (
+            x < self.margin - self.cell_size // 2
+            or x > self.width - self.margin + self.cell_size // 2
+        ):
             return None
-        if y < self.margin - self.cell_size // 2 or y > self.height - self.margin + self.cell_size // 2:
+        if (
+            y < self.margin - self.cell_size // 2
+            or y > self.height - self.margin + self.cell_size // 2
+        ):
             return None
 
         col = round((x - self.margin) / self.cell_size)
@@ -76,19 +96,19 @@ class Board:
                 self.selected_cell = cell
 
                 if is_winner(self.grid, self.size, row, col):
-                    return 'win', self.current_turn
+                    return "win", self.current_turn
 
                 if is_draw(self.grid):
-                    return 'draw', None
+                    return "draw", None
 
                 self.toggle_turn()
-                return 'continue', None
+                return "continue", None
             else:
                 self.selected_cell = None
-                return 'invalid', None
+                return "invalid", None
         else:
             self.selected_cell = None
-            return 'invalid', None
+            return "invalid", None
 
     def toggle_turn(self):
-        self.current_turn = 'blue' if self.current_turn == 'red' else 'red'
+        self.current_turn = "blue" if self.current_turn == "red" else "red"

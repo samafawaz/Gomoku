@@ -4,24 +4,28 @@ from gui.main_menu import MainMenu
 from gui.board import Board
 from game.game_loop import run_game_loop
 
-def human_vs_ai():
-    #lesa
-    print("Starting Human vs AI mode")
-    run_game_loop()
+from ai.minimax import MiniMaxAI
 
-def ai_vs_ai(): #not implemented yet
-    print("Starting AI vs AI mode")
-    run_game_loop()
+# from ai.alphabeta import AlphaBetaAI
+
 
 def main():
     pygame.init()
-    menu = MainMenu()
-    choice = menu.run()
+    while True:
+        menu = MainMenu()
+        choice = menu.run()
 
-    if choice == 0:
-        human_vs_ai()
-    elif choice == 1:
-        ai_vs_ai()
+        if choice == 0:
+            # Human vs AI
+            ai = MiniMaxAI("blue", max_depth=3)
+            run_game_loop(player1_type="human", player2_type="ai", ai2=ai)
+        elif choice == 1:
+            # AI vs AI
+            ai1 = MiniMaxAI("red", max_depth=2)
+            # ai2 = AlphaBetaAI("blue")
+            ai2 = MiniMaxAI("blue", max_depth=2)
+            run_game_loop(player1_type="ai", player2_type="ai", ai1=ai1, ai2=ai2)
+
 
 if __name__ == "__main__":
-   run_game_loop()
+    main()
