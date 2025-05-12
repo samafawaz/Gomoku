@@ -6,7 +6,7 @@ from game.game_loop import run_game_loop
 
 from ai.minimax import MiniMaxAI
 
-# from ai.alphabeta import AlphaBetaAI
+from ai.alphabeta import AlphaBetaAI
 
 
 def main():
@@ -22,8 +22,8 @@ def main():
         elif choice == 1:
             # AI vs AI
             ai1 = MiniMaxAI("red", max_depth=2)
-            # ai2 = AlphaBetaAI("blue")
-            ai2 = MiniMaxAI("blue", max_depth=2)
+            ai2 = AlphaBetaAI("blue")
+            #ai2 = MiniMaxAI("blue", max_depth=2)
             run_game_loop(player1_type="ai", player2_type="ai", ai1=ai1, ai2=ai2)
 
 

@@ -55,6 +55,7 @@ def run_game_loop(player1_type="human", player2_type="ai", ai1=None, ai2=None):
                 move = ai.get_move(board.grid)
                 if move is not None:
                     row, col = move
+                    print(f"AI ({current_player}) chooses move: row={row}, col={col}")  # print ai move
                     # Convert to pixel position for select_cell
                     pos = (
                         board.margin + col * board.cell_size,
